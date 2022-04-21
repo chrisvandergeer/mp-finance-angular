@@ -2,7 +2,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="budgeteer" tabindex="-1" aria-labelledby="budgeteerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="budgeteerModalLabel">Budgeteer transakties</h5>
@@ -10,8 +10,38 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          ...
+        <div class="modal-body" *ngIf="transaktiesForBudgeteren.budgetregel">
+          <label>budgetregelNaam: </label><span>{{transaktiesForBudgeteren.budgetregel.budgetregelNaam}}</span><br/>
+          <label>naamTegenpartij: </label><span>{{transaktiesForBudgeteren.budgetregel.naamTegenpartij}}</span><br/>
+          <label>omschrijvingBevat: </label><span>{{transaktiesForBudgeteren.budgetregel.omschrijvingBevat}}</span><br/>
+          <label>budget: </label><span>{{transaktiesForBudgeteren.budgetregel.budget}}</span><br/>
+          <label>soort: </label><span>{{transaktiesForBudgeteren.budgetregel.soort}}</span>
+
+          <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+              <th class="col-1">datum</th>
+              <th class="col-3">tegenrekening</th>
+              <th class="col-1">bedrag</th>
+              <th class="col-3">omschrijving</th>
+              <th class="col-1">budget</th>
+              <th class="col-1">soort</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
+              <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
+              <td>
+                {{tr.naamTegenpartij}}<br/>
+                <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
+              </td>
+              <td>{{tr.bedrag | currency : 'EUR'}}</td>
+              <td>{{tr.omschrijving}}</td>
+              <td>{{tr.budget}}</td>
+              <td>{{tr.soort}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
@@ -24,18 +54,18 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th class="col-3">datum</th>
-      <th class="col-2">tegenrekening</th>
-      <th class="col-2">bedrag</th>
-      <th class="col-3">omschrijving</th>
-      <th class="col-1">budget</th>
-      <th class="col-1">soort</th>
-      <th class="col-1">actie</th>
+      <th class="col-2">datum</th>
+      <th>tegenrekening</th>
+      <th>bedrag</th>
+      <th>omschrijving</th>
+      <th>budget</th>
+      <th>soort</th>
+      <th>actie</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let tr of transaktieLijst">
-      <td>{{tr.datum}}</td>
+      <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
       <td>
         {{tr.naamTegenpartij}}<br/>
         <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
@@ -44,7 +74,11 @@
       <td>{{tr.omschrijving}}</td>
       <td>{{tr.budget}}</td>
       <td>{{tr.soort}}</td>
-      <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#budgeteer" (click)="findSimilar(tr)">budget</button></td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#budgeteer"
+                (click)="findSimilar(tr)">budget
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>

@@ -12,36 +12,22 @@ export class TransaktieService {
 
   static readonly HEADER = {
     headers: new HttpHeaders({
-      Accept: 'application/json; charset=UTF-8',
-      'Content-Type': 'application/json; charset=UTF-8',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     })
   };
 
-  private transaktielijst$ = new Subject<Transaktie[]>()
-
-  constructor(private readonly http: HttpClient) { }
-
-  haalTransakties(): Observable<Transaktie[]> {
-    return this.http.get("http://localhost:9080/mp-finance/api/transakties", TransaktieService.HEADER).pipe(
-      map((result: HttpResponse<Transaktie[]> | any) => {
-        return result;
-      })
-    )
+  constructor(private readonly http: HttpClient) {
   }
 
-  leesTransakties() : Subject<Transaktie[]> {
-    this.http.get<Transaktie[]>("http://localhost:9080/mp-finance/api/transakties", TransaktieService.HEADER)
-      .pipe(map(responseData => {
-          const trArray : Transaktie[] = [];
-          for (const tr in responseData) {
-            trArray.push(responseData[tr]);
-          }
-          return trArray;
-        })
-      )
-      .subscribe(trList => this.transaktielijst$.next(trList));
-    return this.transaktielijst$;
+  leesTransakties(): Observable<Transaktie[]> {
+    let url = "http://localhost:9080/mp-finance/api/transakties";
+    return this.http.get<Transaktie[]>(url, TransaktieService.HEADER);
   }
 
+  findSimilar(volgnummer: string) {
+    let url = "http://localhost:9080/mp-finance/api/transakties/" + volgnummer;
+    return this.http.get<TransaktieResult>(url, TransaktieService.HEADER);
+  }
 
 }

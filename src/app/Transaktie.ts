@@ -1,7 +1,7 @@
 export interface Transaktie {
 
   volgnr: string;
-  datum: string;
+  datum: Date;
   bedrag: number;
   saldoNaTrn: number;
   tegenrekening: string;

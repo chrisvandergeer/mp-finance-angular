@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TransaktieService} from "./transaktie.service";
 import {Transaktie} from "./Transaktie";
 import {HttpClient} from "@angular/common/http";
+import {TransaktieResult} from "./TransaktieResult";
 
 @Component({
   selector: 'app-root',
@@ -11,18 +12,17 @@ import {HttpClient} from "@angular/common/http";
 export class AppComponent implements OnInit {
 
   transaktieLijst: Transaktie[] = [];
+  transaktiesForBudgeteren: TransaktieResult = <TransaktieResult>{};
 
-  constructor(private transaktieService: TransaktieService,
-              private readonly http: HttpClient) {
+  constructor(private readonly transaktieService: TransaktieService) {
   }
 
   ngOnInit() {
     this.transaktieService.leesTransakties().subscribe(trlist => this.transaktieLijst.push(...trlist));
   }
 
-
   findSimilar(transaktie: Transaktie) {
-    alert("findSimilar: " + transaktie.tegenrekening);
+    this.transaktieService.findSimilar(transaktie.volgnr).subscribe(response => this.transaktiesForBudgeteren = response);
 
   }
 }
