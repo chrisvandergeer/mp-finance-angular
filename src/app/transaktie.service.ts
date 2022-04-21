@@ -43,16 +43,5 @@ export class TransaktieService {
     return this.transaktielijst$;
   }
 
-  geefTransakties(): Observable<Transaktie[]> {
-    return this.transaktielijst$ as Observable<Transaktie[]>;
-  }
-
-  private doGet<T>(url : string): Observable<T> {
-    return this.http.get(url, TransaktieService.HEADER).pipe(
-      map((result: HttpResponse<T> | any) => {
-        return result;
-      })
-    );
-  }
 
 }

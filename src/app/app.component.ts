@@ -21,4 +21,8 @@ export class AppComponent implements OnInit {
   }
 
 
+  findSimilar(transaktie: Transaktie) {
+    alert("findSimilar: " + transaktie.tegenrekening);
+
+  }
 }
