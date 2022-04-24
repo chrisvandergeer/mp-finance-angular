@@ -31,7 +31,7 @@ export class TransaktieService {
 
   budgeteer(transaktieResult: TransaktieResult) {
     let url = "http://localhost:9080/mp-finance/api/transakties";
-    return this.http.post(url, JSON.stringify(transaktieResult), TransaktieService.HEADER).subscribe(result => console.log(result));
+    return this.http.post(url, JSON.stringify(transaktieResult), TransaktieService.HEADER);
   }
 
 }

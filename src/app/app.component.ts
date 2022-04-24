@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.transaktieService.leesTransakties().subscribe(trlist => this.transaktieLijst.push(...trlist));
+    this.leesTransakties();
   }
 
   findSimilar(transaktie: Transaktie) {
@@ -25,7 +25,10 @@ export class AppComponent implements OnInit {
   }
 
   budgeteer() {
-    this.transaktieService.budgeteer(this.transaktiesForBudgeteren);
-    this.transaktieService.leesTransakties();
+    this.transaktieService.budgeteer(this.transaktiesForBudgeteren).subscribe(response => this.leesTransakties());
+  }
+
+  private leesTransakties() {
+    this.transaktieService.leesTransakties().subscribe(trlist => this.transaktieLijst = trlist);
   }
 }

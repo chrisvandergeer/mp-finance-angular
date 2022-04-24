@@ -41,7 +41,8 @@
             <div class="form-group row">
               <label for="soort" class="col-sm-2 col-form-label">Soort</label>
               <div class="col-sm-3">
-                <select class="form-control" id="soort">
+                <select class="form-control" id="soort" [(ngModel)]="transaktiesForBudgeteren.budgetregel.soort"
+                        name="transaktiesForBudgeteren.budgetregel.soort">
                   <option>Dagelijks</option>
                   <option>Vast</option>
                   <option>Incidenteel</option>
@@ -49,7 +50,8 @@
               </div>
               <label for="budget" class="col-sm-1 col-form-label">Budget</label>
               <div class="col-sm-3">
-                <select class="form-control" id="budget">
+                <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
+                        name="transaktiesForBudgeteren.budgetregel.budget">
                   <optgroup label="Dagelijkse uitgaven">
                     <option>Boodschappen</option>
                     <option>Snackbar</option>
