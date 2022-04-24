@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TransaktieService} from "./transaktie.service";
 import {Transaktie} from "./Transaktie";
-import {HttpClient} from "@angular/common/http";
 import {TransaktieResult} from "./TransaktieResult";
 
 @Component({
@@ -23,6 +22,10 @@ export class AppComponent implements OnInit {
 
   findSimilar(transaktie: Transaktie) {
     this.transaktieService.findSimilar(transaktie.volgnr).subscribe(response => this.transaktiesForBudgeteren = response);
+  }
 
+  budgeteer() {
+    this.transaktieService.budgeteer(this.transaktiesForBudgeteren);
+    this.transaktieService.leesTransakties();
   }
 }

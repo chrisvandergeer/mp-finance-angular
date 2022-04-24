@@ -26,23 +26,61 @@
             </div>
             <div class="form-group row">
               <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" id="tegenrekening">
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="tegenrekening"
+                       name="transaktiesForBudgeteren.budgetregel.tegenrekening"
+                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.tegenrekening">
               </div>
               <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="naamTegenpartij" name="transaktiesForBudgeteren.budgetregel.naamTegenpartij" [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij">
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="naamTegenpartij"
+                       name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
+                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij">
               </div>
             </div>
             <div class="form-group row">
               <label for="soort" class="col-sm-2 col-form-label">Soort</label>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" id="soort">
+              <div class="col-sm-3">
+                <select class="form-control" id="soort">
+                  <option>Dagelijks</option>
+                  <option>Vast</option>
+                  <option>Incidenteel</option>
+                </select>
               </div>
               <label for="budget" class="col-sm-1 col-form-label">Budget</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="budget">
+                <select class="form-control" id="budget">
+                  <optgroup label="Dagelijkse uitgaven">
+                    <option>Boodschappen</option>
+                    <option>Snackbar</option>
+                    <option>Drogist</option>
+                    <option>Vermaak</option>
+                  </optgroup>
+                  <optgroup label="Abbonenementen">
+                    <option>Netflix</option>
+                    <option>Spotify</option>
+                    <option>Internet</option>
+                    <option>NLZiet</option>
+                    <option>plusNPO</option>
+                    <option>Balans</option>
+                  </optgroup>
+                  <optgroup label="Verzekeringen">
+                    <option>Rechtsbijstand</option>
+                    <option>Inboedelverzekering</option>
+                    <option>Hema Teun</option>
+                  </optgroup>
+                  <optgroup label="Diverse vaste lasten">
+                    <option>Gemeentebelasting</option>
+                    <option>Bankkosten</option>
+                    <option>Bijdrage floortje</option>
+                    <option>Zakgeld Mees</option>
+                  </optgroup>
+                </select>
               </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+              <button type="button" class="btn btn-primary" (click)="budgeteer()" data-dismiss="modal">Save</button>
             </div>
           </form>
           <table class="table table-sm table-striped">
@@ -70,10 +108,6 @@
             </tr>
             </tbody>
           </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-          <button type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>

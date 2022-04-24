@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from "rxjs";
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Transaktie} from "./Transaktie";
 import {TransaktieResult} from "./TransaktieResult";
 
@@ -28,6 +27,11 @@ export class TransaktieService {
   findSimilar(volgnummer: string) {
     let url = "http://localhost:9080/mp-finance/api/transakties/" + volgnummer;
     return this.http.get<TransaktieResult>(url, TransaktieService.HEADER);
+  }
+
+  budgeteer(transaktieResult: TransaktieResult) {
+    let url = "http://localhost:9080/mp-finance/api/transakties";
+    return this.http.post(url, JSON.stringify(transaktieResult), TransaktieService.HEADER).subscribe(result => console.log(result));
   }
 
 }
