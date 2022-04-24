@@ -11,12 +11,40 @@
           </button>
         </div>
         <div class="modal-body" *ngIf="transaktiesForBudgeteren.budgetregel">
-          <label>budgetregelNaam: </label><span>{{transaktiesForBudgeteren.budgetregel.budgetregelNaam}}</span><br/>
-          <label>naamTegenpartij: </label><span>{{transaktiesForBudgeteren.budgetregel.naamTegenpartij}}</span><br/>
-          <label>omschrijvingBevat: </label><span>{{transaktiesForBudgeteren.budgetregel.omschrijvingBevat}}</span><br/>
-          <label>budget: </label><span>{{transaktiesForBudgeteren.budgetregel.budget}}</span><br/>
-          <label>soort: </label><span>{{transaktiesForBudgeteren.budgetregel.soort}}</span>
-
+          <form>
+            <div class="form-group row">
+              <label for="budgetRegelnaam" class="col-sm-2 col-form-label">Budgetregel</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="budgetRegelnaam">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="omschrijvingBevat" class="col-sm-2 col-form-label">Omschrijving bevat</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="omschrijvingBevat">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" id="tegenrekening">
+              </div>
+              <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="naamTegenpartij" name="transaktiesForBudgeteren.budgetregel.naamTegenpartij" [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="soort" class="col-sm-2 col-form-label">Soort</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" id="soort">
+              </div>
+              <label for="budget" class="col-sm-1 col-form-label">Budget</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="budget">
+              </div>
+            </div>
+          </form>
           <table class="table table-sm table-striped">
             <thead>
             <tr>
