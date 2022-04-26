@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TransaktieService} from "./transaktie.service";
 import {Transaktie} from "./Transaktie";
-import {TransaktieResult} from "./TransaktieResult";
+import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import {TransaktieResult} from "./TransaktieResult";
 export class AppComponent implements OnInit {
 
   transaktieLijst: Transaktie[] = [];
-  transaktiesForBudgeteren: TransaktieResult = <TransaktieResult>{};
+  transaktiesForBudgeteren: BudgetregelMetTransakties = <BudgetregelMetTransakties>{};
 
   constructor(private readonly transaktieService: TransaktieService) {
   }
@@ -22,6 +22,13 @@ export class AppComponent implements OnInit {
 
   findSimilar(transaktie: Transaktie) {
     this.transaktieService.findSimilar(transaktie.volgnr).subscribe(response => this.transaktiesForBudgeteren = response);
+  }
+
+  updateTransaktiesVoorBudgeteren() {
+    this.transaktieService.findTransakties(
+      this.transaktiesForBudgeteren.budgetregel.tegenrekening,
+      this.transaktiesForBudgeteren.budgetregel.naamTegenpartij,
+      this.transaktiesForBudgeteren.budgetregel.omschrijving).subscribe(response => this.transaktiesForBudgeteren = response);
   }
 
   budgeteer() {
