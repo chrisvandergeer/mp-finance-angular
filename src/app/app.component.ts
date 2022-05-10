@@ -3,6 +3,7 @@ import {TransaktieService} from "./transaktie.service";
 import {Transaktie} from "./Transaktie";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 import {Budgetregel} from "./Budgetregel";
+import {BudgetGroep} from "./budget-groep";
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,14 @@ import {Budgetregel} from "./Budgetregel";
 export class AppComponent implements OnInit {
 
   transaktiesForBudgeteren: BudgetregelMetTransakties = <BudgetregelMetTransakties>{};
+  budgetGroepen: BudgetGroep[] = [];
 
   constructor(private readonly transaktieService: TransaktieService) {
   }
 
   ngOnInit() {
     this.leesTransakties();
+    this.leesBudgetten();
   }
 
   findSimilar(transaktie: Transaktie) {
@@ -38,9 +41,14 @@ export class AppComponent implements OnInit {
   clearForm() {
     this.transaktiesForBudgeteren.budgetregel = <Budgetregel>{};
     this.leesTransakties();
+    this.leesBudgetten();
   }
 
   private leesTransakties() {
     this.transaktieService.leesTransakties().subscribe(response => this.transaktiesForBudgeteren = response);
+  }
+
+  private leesBudgetten() {
+    this.transaktieService.getBudgetten().subscribe(response => this.budgetGroepen = response);
   }
 }

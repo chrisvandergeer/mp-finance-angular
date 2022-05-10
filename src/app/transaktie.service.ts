@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
+import {BudgetGroep} from "./budget-groep";
 
 @Injectable({
   providedIn: 'root'
@@ -42,4 +43,8 @@ export class TransaktieService {
     return this.http.post(url, JSON.stringify(transaktieResult), TransaktieService.HEADER);
   }
 
+  getBudgetten() : Observable<BudgetGroep[]> {
+    let url = "http://localhost:9080/mp-finance/api/budgetten";
+    return this.http.get<BudgetGroep[]>(url, TransaktieService.HEADER);
+  }
 }

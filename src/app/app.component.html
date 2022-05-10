@@ -48,30 +48,8 @@
         <div class="col-sm-3">
           <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
                   name="transaktiesForBudgeteren.budgetregel.budget">
-            <optgroup label="Dagelijkse uitgaven">
-              <option>Boodschappen</option>
-              <option>Snackbar</option>
-              <option>Drogist</option>
-              <option>Vermaak</option>
-            </optgroup>
-            <optgroup label="Abbonenementen">
-              <option>Netflix</option>
-              <option>Spotify</option>
-              <option>Internet</option>
-              <option>NLZiet</option>
-              <option>plusNPO</option>
-              <option>Balans</option>
-            </optgroup>
-            <optgroup label="Verzekeringen">
-              <option>Rechtsbijstand</option>
-              <option>Inboedelverzekering</option>
-              <option>Hema Teun</option>
-            </optgroup>
-            <optgroup label="Diverse vaste lasten">
-              <option>Gemeentebelasting</option>
-              <option>Bankkosten</option>
-              <option>Bijdrage floortje</option>
-              <option>Zakgeld Mees</option>
+            <optgroup *ngFor="let bg of budgetGroepen" label="{{bg.naam}}">
+              <option *ngFor="let b of bg.budgetNamen">{{b.naam}}</option>
             </optgroup>
           </select>
         </div>
