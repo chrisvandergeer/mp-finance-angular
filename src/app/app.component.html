@@ -72,13 +72,15 @@
         <th class="col-3">omschrijving</th>
         <th class="col-1">budget</th>
         <th class="col-1">soort</th>
-        <th class="col-1"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
         <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
         <td>
+          <a
+            *ngIf="!transaktiesForBudgeteren.budgetregel.naamTegenpartij && !transaktiesForBudgeteren.budgetregel.tegenrekening"
+            class="badge badge-primary badge-pill" (click)="findSimilar(tr)">+</a>
           {{tr.naamTegenpartij}}<br/>
           <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
         </td>
@@ -86,11 +88,6 @@
         <td>{{tr.omschrijving}}</td>
         <td><span class="badge badge-secondary">{{tr.budget}}</span></td>
         <td><span class="badge badge-secondary">{{tr.soort}}</span></td>
-        <td>
-          <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#budgeteer"
-                  (click)="findSimilar(tr)">budget
-          </button>
-        </td>
       </tr>
       </tbody>
     </table>
