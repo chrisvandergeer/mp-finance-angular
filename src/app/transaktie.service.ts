@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Transaktie} from "./Transaktie";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 
 @Injectable({
@@ -19,9 +18,9 @@ export class TransaktieService {
   constructor(private readonly http: HttpClient) {
   }
 
-  leesTransakties(): Observable<Transaktie[]> {
+  leesTransakties(): Observable<BudgetregelMetTransakties> {
     let url = "http://localhost:9080/mp-finance/api/transakties";
-    return this.http.get<Transaktie[]>(url, TransaktieService.HEADER);
+    return this.http.get<BudgetregelMetTransakties>(url, TransaktieService.HEADER);
   }
 
   findTransakties(tegenrekening: string, naamTegenpartij: string, omschrijving: string) {

@@ -1,156 +1,121 @@
 <div class="container">
 
-  <!-- Modal -->
-  <div class="modal fade" id="budgeteer" tabindex="-1" data-keyboard="false" aria-labelledby="budgeteerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="budgeteerModalLabel">Budgeteer transakties</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" *ngIf="transaktiesForBudgeteren.budgetregel">
-          <form>
-            <div class="form-group row">
-              <label for="budgetRegelnaam" class="col-sm-2 col-form-label">Budgetregel</label>
-              <div class="col-sm-5">
-                <input type="text" class="form-control" id="budgetRegelnaam">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
-              <div class="col-sm-5">
-                <input type="text" class="form-control" id="omschrijving"
-                       name="transaktiesForBudgeteren.budgetregel.omschrijving"
-                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
-                       (blur)="updateTransaktiesVoorBudgeteren()">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="tegenrekening"
-                       name="transaktiesForBudgeteren.budgetregel.tegenrekening"
-                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.tegenrekening"
-                       (blur)="updateTransaktiesVoorBudgeteren()">
-              </div>
-              <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control" id="naamTegenpartij"
-                       name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
-                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
-                       (blur)="updateTransaktiesVoorBudgeteren()">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="soort" class="col-sm-2 col-form-label">Soort</label>
-              <div class="col-sm-3">
-                <select class="form-control" id="soort" [(ngModel)]="transaktiesForBudgeteren.budgetregel.soort"
-                        name="transaktiesForBudgeteren.budgetregel.soort">
-                  <option>Dagelijks</option>
-                  <option>Vast</option>
-                  <option>Incidenteel</option>
-                </select>
-              </div>
-              <label for="budget" class="col-sm-1 col-form-label">Budget</label>
-              <div class="col-sm-3">
-                <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
-                        name="transaktiesForBudgeteren.budgetregel.budget">
-                  <optgroup label="Dagelijkse uitgaven">
-                    <option>Boodschappen</option>
-                    <option>Snackbar</option>
-                    <option>Drogist</option>
-                    <option>Vermaak</option>
-                  </optgroup>
-                  <optgroup label="Abbonenementen">
-                    <option>Netflix</option>
-                    <option>Spotify</option>
-                    <option>Internet</option>
-                    <option>NLZiet</option>
-                    <option>plusNPO</option>
-                    <option>Balans</option>
-                  </optgroup>
-                  <optgroup label="Verzekeringen">
-                    <option>Rechtsbijstand</option>
-                    <option>Inboedelverzekering</option>
-                    <option>Hema Teun</option>
-                  </optgroup>
-                  <optgroup label="Diverse vaste lasten">
-                    <option>Gemeentebelasting</option>
-                    <option>Bankkosten</option>
-                    <option>Bijdrage floortje</option>
-                    <option>Zakgeld Mees</option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-              <button type="button" class="btn btn-primary" (click)="budgeteer()" data-dismiss="modal">Save</button>
-            </div>
-          </form>
-          <table class="table table-sm table-striped">
-            <thead>
-            <tr>
-              <th class="col-1">datum</th>
-              <th class="col-3">tegenrekening</th>
-              <th class="col-1">bedrag</th>
-              <th class="col-3">omschrijving</th>
-              <th class="col-1">budget</th>
-              <th class="col-1">soort</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
-              <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
-              <td>
-                {{tr.naamTegenpartij}}<br/>
-                <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
-              </td>
-              <td>{{tr.bedrag | currency : 'EUR'}}</td>
-              <td>{{tr.omschrijving}}</td>
-              <td>{{tr.budget}}</td>
-              <td>{{tr.soort}}</td>
-            </tr>
-            </tbody>
-          </table>
+  <div>
+    <h2>Budgeteren</h2>
+    <form *ngIf="transaktiesForBudgeteren.budgetregel">
+      <div class="form-group row">
+        <label for="budgetRegelnaam" class="col-sm-2 col-form-label">Budgetregel</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="budgetRegelnaam">
         </div>
       </div>
-    </div>
+      <div class="form-group row">
+        <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="omschrijving"
+                 name="transaktiesForBudgeteren.budgetregel.omschrijving"
+                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
+                 (blur)="updateTransaktiesVoorBudgeteren()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="tegenrekening"
+                 name="transaktiesForBudgeteren.budgetregel.tegenrekening"
+                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.tegenrekening"
+                 (blur)="updateTransaktiesVoorBudgeteren()">
+        </div>
+        <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="naamTegenpartij"
+                 name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
+                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
+                 (blur)="updateTransaktiesVoorBudgeteren()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="soort" class="col-sm-2 col-form-label">Soort</label>
+        <div class="col-sm-3">
+          <select class="form-control" id="soort" [(ngModel)]="transaktiesForBudgeteren.budgetregel.soort"
+                  name="transaktiesForBudgeteren.budgetregel.soort">
+            <option>Dagelijks</option>
+            <option>Vast</option>
+            <option>Incidenteel</option>
+          </select>
+        </div>
+        <label for="budget" class="col-sm-1 col-form-label">Budget</label>
+        <div class="col-sm-3">
+          <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
+                  name="transaktiesForBudgeteren.budgetregel.budget">
+            <optgroup label="Dagelijkse uitgaven">
+              <option>Boodschappen</option>
+              <option>Snackbar</option>
+              <option>Drogist</option>
+              <option>Vermaak</option>
+            </optgroup>
+            <optgroup label="Abbonenementen">
+              <option>Netflix</option>
+              <option>Spotify</option>
+              <option>Internet</option>
+              <option>NLZiet</option>
+              <option>plusNPO</option>
+              <option>Balans</option>
+            </optgroup>
+            <optgroup label="Verzekeringen">
+              <option>Rechtsbijstand</option>
+              <option>Inboedelverzekering</option>
+              <option>Hema Teun</option>
+            </optgroup>
+            <optgroup label="Diverse vaste lasten">
+              <option>Gemeentebelasting</option>
+              <option>Bankkosten</option>
+              <option>Bijdrage floortje</option>
+              <option>Zakgeld Mees</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
+        <button type="button" class="btn btn-primary" (click)="budgeteer()">Save</button>
+      </div>
+    </form>
   </div>
 
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th class="col-2">datum</th>
-      <th>tegenrekening</th>
-      <th>bedrag</th>
-      <th>omschrijving</th>
-      <th>budget</th>
-      <th>soort</th>
-      <th>actie</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let tr of transaktieLijst">
-      <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
-      <td>
-        {{tr.naamTegenpartij}}<br/>
-        <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
-      </td>
-      <td>{{tr.bedrag | currency : 'EUR'}}</td>
-      <td>{{tr.omschrijving}}</td>
-      <td>{{tr.budget}}</td>
-      <td>{{tr.soort}}</td>
-      <td>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#budgeteer"
-                (click)="findSimilar(tr)">budget
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div>
+    <h2>Transakties</h2>
+    <table class="table table-sm table-striped">
+      <thead>
+      <tr>
+        <th class="col-1">datum</th>
+        <th class="col-3">tegenrekening</th>
+        <th class="col-1">bedrag</th>
+        <th class="col-3">omschrijving</th>
+        <th class="col-1">budget</th>
+        <th class="col-1">soort</th>
+        <th class="col-1"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
+        <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
+        <td>
+          {{tr.naamTegenpartij}}<br/>
+          <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
+        </td>
+        <td>{{tr.bedrag | currency : 'EUR'}}</td>
+        <td>{{tr.omschrijving}}</td>
+        <td><span class="badge badge-secondary">{{tr.budget}}</span></td>
+        <td><span class="badge badge-secondary">{{tr.soort}}</span></td>
+        <td>
+          <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#budgeteer"
+                  (click)="findSimilar(tr)">budget
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
 

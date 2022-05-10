@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TransaktieService} from "./transaktie.service";
 import {Transaktie} from "./Transaktie";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
+import {Budgetregel} from "./Budgetregel";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,6 @@ import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 })
 export class AppComponent implements OnInit {
 
-  transaktieLijst: Transaktie[] = [];
   transaktiesForBudgeteren: BudgetregelMetTransakties = <BudgetregelMetTransakties>{};
 
   constructor(private readonly transaktieService: TransaktieService) {
@@ -35,7 +35,12 @@ export class AppComponent implements OnInit {
     this.transaktieService.budgeteer(this.transaktiesForBudgeteren).subscribe(response => this.leesTransakties());
   }
 
+  clearForm() {
+    this.transaktiesForBudgeteren.budgetregel = <Budgetregel>{};
+    this.leesTransakties();
+  }
+
   private leesTransakties() {
-    this.transaktieService.leesTransakties().subscribe(trlist => this.transaktieLijst = trlist);
+    this.transaktieService.leesTransakties().subscribe(response => this.transaktiesForBudgeteren = response);
   }
 }
