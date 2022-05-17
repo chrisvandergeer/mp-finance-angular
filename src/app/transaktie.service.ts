@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 import {BudgetGroep} from "./budget-groep";
+import {Budget} from "./budget";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,13 @@ export class TransaktieService {
     return this.http.get<BudgetregelMetTransakties>(url, TransaktieService.HEADER);
   }
 
-  findTransakties(tegenrekening: string, naamTegenpartij: string, omschrijving: string) {
+  findTransakties(tegenrekening: string, naamTegenpartij: string, omschrijving: string, alleenNietGebudgeteerde: boolean) {
     let url = "http://localhost:9080/mp-finance/api/transakties";
     let queryParams = new HttpParams();
     if (tegenrekening != null) queryParams = queryParams.append("tegenrekening", tegenrekening);
     if (naamTegenpartij != null) queryParams = queryParams.append("naamTegenpartij", naamTegenpartij);
     if (omschrijving != null) queryParams = queryParams.append("omschrijving", omschrijving);
+    queryParams = queryParams.append("alleenNietGebudgeteerde", alleenNietGebudgeteerde);
     return this.http.get<BudgetregelMetTransakties>(url, {params: queryParams});
   }
 
@@ -46,5 +48,10 @@ export class TransaktieService {
   getBudgetten() : Observable<BudgetGroep[]> {
     let url = "http://localhost:9080/mp-finance/api/budgetten";
     return this.http.get<BudgetGroep[]>(url, TransaktieService.HEADER);
+  }
+
+  saveBudget(budget: Budget) {
+    let url = "http://localhost:9080/mp-finance/api/budgetten";
+    return this.http.post(url, JSON.stringify(budget), TransaktieService.HEADER);
   }
 }

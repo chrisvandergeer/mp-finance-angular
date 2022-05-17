@@ -4,21 +4,6 @@
     <h2>Budgeteren</h2>
     <form *ngIf="transaktiesForBudgeteren.budgetregel">
       <div class="form-group row">
-        <label for="budgetRegelnaam" class="col-sm-2 col-form-label">Budgetregel</label>
-        <div class="col-sm-5">
-          <input type="text" class="form-control" id="budgetRegelnaam">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
-        <div class="col-sm-5">
-          <input type="text" class="form-control" id="omschrijving"
-                 name="transaktiesForBudgeteren.budgetregel.omschrijving"
-                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
-                 (blur)="updateTransaktiesVoorBudgeteren()">
-        </div>
-      </div>
-      <div class="form-group row">
         <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
         <div class="col-sm-3">
           <input type="text" class="form-control" id="tegenrekening"
@@ -27,13 +12,27 @@
                  (blur)="updateTransaktiesVoorBudgeteren()">
         </div>
         <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <input type="text" class="form-control" id="naamTegenpartij"
                  name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
                  [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
                  (blur)="updateTransaktiesVoorBudgeteren()">
         </div>
       </div>
+      <div class="form-group row">
+        <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="omschrijving"
+                 name="transaktiesForBudgeteren.budgetregel.omschrijving"
+                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
+                 (blur)="updateTransaktiesVoorBudgeteren()">
+        </div>
+        <div class="col-sm-3">
+          <button *ngIf="!transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark" (click)="toggleWelNietGebudgeteerde()">Alle transakties</button>
+          <button *ngIf="transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark" (click)="toggleWelNietGebudgeteerde()">Niet gebudgeert</button>
+        </div>
+      </div>
+      <hr>
       <div class="form-group row">
         <label for="soort" class="col-sm-2 col-form-label">Soort</label>
         <div class="col-sm-3">
@@ -53,10 +52,17 @@
             </optgroup>
           </select>
         </div>
+        <div class="col-sm-1">
+          <button class="btn btn-dark" data-toggle="modal" data-target="#nieuwBudgetModal">+</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
-        <button type="button" class="btn btn-primary" (click)="budgeteer()">Save</button>
+      <div class="form-group row">
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-primary" (click)="budgeteer()">Save</button>
+        </div>
       </div>
     </form>
   </div>
@@ -91,6 +97,39 @@
       </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="modal fade" id="nieuwBudgetModal" tabindex="-1" aria-labelledby="nieuwBudgetModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nieuwBudgetModalLabel">Budget</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+              <label for="budgetgroep" class="col-sm-3 col-form-label">Budgetgroep</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="budgetgroep" [(ngModel)]="budget.budgetgroep" name="budget.budgetgroep">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="budgetnaam" class="col-sm-3 col-form-label">Budgetnaam</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="budgetnaam" [(ngModel)]="budget.budgetnaam" name="budget.budgetnaam">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveBudget()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
 
