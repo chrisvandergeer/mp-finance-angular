@@ -1,7 +1,27 @@
 <div class="container">
 
-  <div>
-    <h2>Budgeteren</h2>
+  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#budgetoverzicht" aria-expanded="false" aria-controls="budgetoverzicht">+ Budget overzicht</button>
+  <div class="collapse" id="budgetoverzicht">
+    <table class="table table-sm table-striped">
+      <thead>
+      <tr>
+        <th>Budgetnaam</th>
+        <th style="text-align: right" *ngFor="let bm of getBudgetmaanden()">{{ bm.maand }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let b of overzicht">
+        <td>{{ b.naam }}</td>
+        <td style="text-align: right" *ngFor="let bm of b.budgetMaandTotaalDtoList">{{ bm.totaalBedrag | currency : 'EUR'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br/>
+
+  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#budgeteren" aria-expanded="true" aria-controls="budgeteren">+ Zoeken & Budgeteren</button>
+  <div class="collapse" id="budgeteren">
     <form *ngIf="transaktiesForBudgeteren.budgetregel">
       <div class="form-group row">
         <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
@@ -28,8 +48,12 @@
                  (blur)="updateTransaktiesVoorBudgeteren()">
         </div>
         <div class="col-sm-3">
-          <button *ngIf="!transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark" (click)="toggleWelNietGebudgeteerde()">Alle transakties</button>
-          <button *ngIf="transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark" (click)="toggleWelNietGebudgeteerde()">Niet gebudgeert</button>
+          <button *ngIf="!transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
+                  (click)="toggleWelNietGebudgeteerde()">Alle transakties
+          </button>
+          <button *ngIf="transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
+                  (click)="toggleWelNietGebudgeteerde()">Niet gebudgeert
+          </button>
         </div>
       </div>
       <hr>
@@ -67,8 +91,10 @@
     </form>
   </div>
 
+  <br/>
+
   <div>
-    <h2>Transakties</h2>
+    <h4>Transakties</h4>
     <table class="table table-sm table-striped">
       <thead>
       <tr>
@@ -112,15 +138,17 @@
       <div class="modal-body">
         <form>
           <div class="form-group row">
-              <label for="budgetgroep" class="col-sm-3 col-form-label">Budgetgroep</label>
+            <label for="budgetgroep" class="col-sm-3 col-form-label">Budgetgroep</label>
             <div class="col-sm-5">
-              <input type="text" class="form-control" id="budgetgroep" [(ngModel)]="budget.budgetgroep" name="budget.budgetgroep">
+              <input type="text" class="form-control" id="budgetgroep" [(ngModel)]="budget.budgetgroep"
+                     name="budget.budgetgroep">
             </div>
           </div>
           <div class="form-group row">
             <label for="budgetnaam" class="col-sm-3 col-form-label">Budgetnaam</label>
             <div class="col-sm-5">
-              <input type="text" class="form-control" id="budgetnaam" [(ngModel)]="budget.budgetnaam" name="budget.budgetnaam">
+              <input type="text" class="form-control" id="budgetnaam" [(ngModel)]="budget.budgetnaam"
+                     name="budget.budgetnaam">
             </div>
           </div>
         </form>

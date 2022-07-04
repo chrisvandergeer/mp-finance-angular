@@ -5,6 +5,7 @@ import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 import {Budgetregel} from "./Budgetregel";
 import {BudgetGroep} from "./budget-groep";
 import {Budget} from "./budget";
+import {BudgetgroepMaandtotalen} from "./budgetgroep-maandtotalen";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   transaktiesForBudgeteren: BudgetregelMetTransakties = <BudgetregelMetTransakties>{};
   budgetGroepen: BudgetGroep[] = [];
   budget: Budget = <Budget>{};
+  overzicht: BudgetgroepMaandtotalen[] = [];
 
   constructor(private readonly transaktieService: TransaktieService) {
   }
@@ -23,8 +25,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.leesTransakties();
     this.leesBudgetten();
+    this.getBudgetOverzicht();
     this.transaktiesForBudgeteren.budgetregel = <Budgetregel>{};
     this.transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde = false;
+  }
+
+  getBudgetmaanden() {
+    return this.overzicht[0].budgetMaandTotaalDtoList;
   }
 
   findSimilar(transaktie: Transaktie) {
@@ -68,4 +75,9 @@ export class AppComponent implements OnInit {
   private leesBudgetten() {
     this.transaktieService.getBudgetten().subscribe(response => this.budgetGroepen = response);
   }
+
+  private getBudgetOverzicht() {
+    this.transaktieService.getOverzicht().subscribe(response => this.overzicht = response);
+  }
+
 }

@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BudgetregelMetTransakties} from "./BudgetregelMetTransakties";
 import {BudgetGroep} from "./budget-groep";
 import {Budget} from "./budget";
+import {BudgetgroepMaandtotalen} from "./budgetgroep-maandtotalen";
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,11 @@ export class TransaktieService {
   saveBudget(budget: Budget) {
     let url = "http://localhost:9080/mp-finance/api/budgetten";
     return this.http.post(url, JSON.stringify(budget), TransaktieService.HEADER);
+  }
+
+  getOverzicht() {
+    let url = "http://localhost:9080/mp-finance/api/budgetoverzicht";
+    return this.http.get<BudgetgroepMaandtotalen[]>(url, TransaktieService.HEADER);
+
   }
 }
