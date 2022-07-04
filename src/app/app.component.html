@@ -1,129 +1,156 @@
 <div class="container">
 
-  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#budgetoverzicht" aria-expanded="false" aria-controls="budgetoverzicht">+ Budget overzicht</button>
-  <div class="collapse" id="budgetoverzicht">
-    <table class="table table-sm table-striped">
-      <thead>
-      <tr>
-        <th>Budgetnaam</th>
-        <th style="text-align: right" *ngFor="let bm of getBudgetmaanden()">{{ bm.maand }}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let b of overzicht">
-        <td>{{ b.naam }}</td>
-        <td style="text-align: right" *ngFor="let bm of b.budgetMaandTotaalDtoList">{{ bm.totaalBedrag | currency : 'EUR'}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <br/>
-
-  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#budgeteren" aria-expanded="true" aria-controls="budgeteren">+ Zoeken & Budgeteren</button>
-  <div class="collapse" id="budgeteren">
-    <form *ngIf="transaktiesForBudgeteren.budgetregel">
-      <div class="form-group row">
-        <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" id="tegenrekening"
-                 name="transaktiesForBudgeteren.budgetregel.tegenrekening"
-                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.tegenrekening"
-                 (blur)="updateTransaktiesVoorBudgeteren()">
-        </div>
-        <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" id="naamTegenpartij"
-                 name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
-                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
-                 (blur)="updateTransaktiesVoorBudgeteren()">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" id="omschrijving"
-                 name="transaktiesForBudgeteren.budgetregel.omschrijving"
-                 [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
-                 (blur)="updateTransaktiesVoorBudgeteren()">
-        </div>
-        <div class="col-sm-3">
-          <button *ngIf="!transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
-                  (click)="toggleWelNietGebudgeteerde()">Alle transakties
+  <div class="accordion" id="myAccordion">
+    <div class="card">
+      <div class="card-header" id="budgetoverzichtHeading">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#budgetoverzicht" aria-expanded="false" aria-controls="budgetoverzicht">
+            Budget maand overzicht
           </button>
-          <button *ngIf="transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
-                  (click)="toggleWelNietGebudgeteerde()">Niet gebudgeert
+        </h2>
+      </div>
+      <div id="budgetoverzicht" class="collapse" aria-labelledby="budgetoverzichtHeading" data-parent="#myAccordion">
+        <div class="card-body">
+          <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+              <th>Budgetnaam</th>
+              <th style="text-align: right" *ngFor="let bm of getBudgetmaanden()">{{ bm.maand }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let b of overzicht">
+              <td>{{ b.naam }}</td>
+              <td style="text-align: right" *ngFor="let bm of b.budgetMaandTotaalDtoList">{{ bm.totaalBedrag | currency : 'EUR'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="budgeterenHeading">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#budgeteren" aria-expanded="true" aria-controls="budgeteren">
+            Budgeteren
           </button>
+        </h2>
+      </div>
+      <div id="budgeteren" class="collapse" aria-labelledby="budgeterenHeading" data-parent="#myAccordion">
+        <div class="card-body">
+          <form *ngIf="transaktiesForBudgeteren.budgetregel">
+            <div class="form-group row">
+              <label for="tegenrekening" class="col-sm-2 col-form-label">Tegenrekening</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="tegenrekening"
+                       name="transaktiesForBudgeteren.budgetregel.tegenrekening"
+                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.tegenrekening"
+                       (blur)="updateTransaktiesVoorBudgeteren()">
+              </div>
+              <label for="naamTegenpartij" class="col-sm-1 col-form-label">Naam</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="naamTegenpartij"
+                       name="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
+                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.naamTegenpartij"
+                       (blur)="updateTransaktiesVoorBudgeteren()">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving bevat</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="omschrijving"
+                       name="transaktiesForBudgeteren.budgetregel.omschrijving"
+                       [(ngModel)]="transaktiesForBudgeteren.budgetregel.omschrijving"
+                       (blur)="updateTransaktiesVoorBudgeteren()">
+              </div>
+              <div class="col-sm-3">
+                <button *ngIf="!transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
+                        (click)="toggleWelNietGebudgeteerde()">Alle transakties
+                </button>
+                <button *ngIf="transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde" class="btn btn-dark"
+                        (click)="toggleWelNietGebudgeteerde()">Niet gebudgeert
+                </button>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+              <label for="soort" class="col-sm-2 col-form-label">Soort</label>
+              <div class="col-sm-3">
+                <select class="form-control" id="soort" [(ngModel)]="transaktiesForBudgeteren.budgetregel.soort"
+                        name="transaktiesForBudgeteren.budgetregel.soort">
+                  <option>Dagelijks</option>
+                  <option>Vast</option>
+                  <option>Incidenteel</option>
+                </select>
+              </div>
+              <label for="budget" class="col-sm-1 col-form-label">Budget</label>
+              <div class="col-sm-3">
+                <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
+                        name="transaktiesForBudgeteren.budgetregel.budget">
+                  <optgroup *ngFor="let bg of budgetGroepen" label="{{bg.naam}}">
+                    <option *ngFor="let b of bg.budgetNamen">{{b.naam}}</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="col-sm-1">
+                <button class="btn btn-dark" data-toggle="modal" data-target="#nieuwBudgetModal">+</button>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-primary" (click)="budgeteer()">Save</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      <hr>
-      <div class="form-group row">
-        <label for="soort" class="col-sm-2 col-form-label">Soort</label>
-        <div class="col-sm-3">
-          <select class="form-control" id="soort" [(ngModel)]="transaktiesForBudgeteren.budgetregel.soort"
-                  name="transaktiesForBudgeteren.budgetregel.soort">
-            <option>Dagelijks</option>
-            <option>Vast</option>
-            <option>Incidenteel</option>
-          </select>
-        </div>
-        <label for="budget" class="col-sm-1 col-form-label">Budget</label>
-        <div class="col-sm-3">
-          <select class="form-control" id="budget" [(ngModel)]="transaktiesForBudgeteren.budgetregel.budget"
-                  name="transaktiesForBudgeteren.budgetregel.budget">
-            <optgroup *ngFor="let bg of budgetGroepen" label="{{bg.naam}}">
-              <option *ngFor="let b of bg.budgetNamen">{{b.naam}}</option>
-            </optgroup>
-          </select>
-        </div>
-        <div class="col-sm-1">
-          <button class="btn btn-dark" data-toggle="modal" data-target="#nieuwBudgetModal">+</button>
+    </div>
+    <div class="card">
+      <div class="card-header" id="transaktiesHeading">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#transakties" aria-expanded="true" aria-controls="transakties">
+            Transakties
+          </button>
+        </h2>
+      </div>
+      <div id="transakties" class="collapse show" aria-labelledby="transaktiesHeading" >
+        <div class="card-body">
+          <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+              <th class="col-1">datum</th>
+              <th class="col-3">tegenrekening</th>
+              <th class="col-1">bedrag</th>
+              <th class="col-3">omschrijving</th>
+              <th class="col-1">budget</th>
+              <th class="col-1">soort</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
+              <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
+              <td>
+                <a
+                  *ngIf="!transaktiesForBudgeteren.budgetregel.naamTegenpartij && !transaktiesForBudgeteren.budgetregel.tegenrekening"
+                  class="badge badge-primary badge-pill" (click)="findSimilar(tr)">+</a>
+                {{tr.naamTegenpartij}}<br/>
+                <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
+              </td>
+              <td>{{tr.bedrag | currency : 'EUR'}}</td>
+              <td>{{tr.omschrijving}}</td>
+              <td><span class="badge badge-secondary">{{tr.budget}}</span></td>
+              <td><span class="badge badge-secondary">{{tr.soort}}</span></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-sm-1">
-          <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
-        </div>
-        <div class="col-sm-1">
-          <button type="button" class="btn btn-primary" (click)="budgeteer()">Save</button>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 
-  <br/>
-
-  <div>
-    <h4>Transakties</h4>
-    <table class="table table-sm table-striped">
-      <thead>
-      <tr>
-        <th class="col-1">datum</th>
-        <th class="col-3">tegenrekening</th>
-        <th class="col-1">bedrag</th>
-        <th class="col-3">omschrijving</th>
-        <th class="col-1">budget</th>
-        <th class="col-1">soort</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let tr of transaktiesForBudgeteren.transakties">
-        <td>{{tr.datum | date: 'dd-MM-YYYY'}}</td>
-        <td>
-          <a
-            *ngIf="!transaktiesForBudgeteren.budgetregel.naamTegenpartij && !transaktiesForBudgeteren.budgetregel.tegenrekening"
-            class="badge badge-primary badge-pill" (click)="findSimilar(tr)">+</a>
-          {{tr.naamTegenpartij}}<br/>
-          <span class="badge bg-secondary text-light">{{tr.tegenrekening}}</span>
-        </td>
-        <td>{{tr.bedrag | currency : 'EUR'}}</td>
-        <td>{{tr.omschrijving}}</td>
-        <td><span class="badge badge-secondary">{{tr.budget}}</span></td>
-        <td><span class="badge badge-secondary">{{tr.soort}}</span></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <div class="modal fade" id="nieuwBudgetModal" tabindex="-1" aria-labelledby="nieuwBudgetModalLabel" aria-hidden="true">
