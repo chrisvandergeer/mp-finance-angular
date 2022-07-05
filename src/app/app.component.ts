@@ -19,13 +19,16 @@ export class AppComponent implements OnInit {
   budget: Budget = <Budget>{};
   overzicht: BudgetgroepMaandtotalen[] = [];
 
+  selectedBudgetgroep: string = "";
+  overzichtOpGroep: BudgetgroepMaandtotalen[] = [];
+
   constructor(private readonly transaktieService: TransaktieService) {
   }
 
   ngOnInit() {
-    this.leesTransakties();
     this.leesBudgetten();
-    this.getBudgetOverzicht();
+    this.getBudgetgroepOverzicht();
+    this.leesTransakties();
     this.transaktiesForBudgeteren.budgetregel = <Budgetregel>{};
     this.transaktiesForBudgeteren.budgetregel.alleenNietGebudgeteerde = false;
   }
@@ -76,8 +79,12 @@ export class AppComponent implements OnInit {
     this.transaktieService.getBudgetten().subscribe(response => this.budgetGroepen = response);
   }
 
-  private getBudgetOverzicht() {
+  private getBudgetgroepOverzicht() {
     this.transaktieService.getOverzicht().subscribe(response => this.overzicht = response);
   }
 
+  getBudgetOverzicht(naam: string) {
+    this.selectedBudgetgroep = naam;
+    this.transaktieService.getOverzichtBudgetgroep(naam).subscribe(response => this.overzichtOpGroep = response);
+  }
 }

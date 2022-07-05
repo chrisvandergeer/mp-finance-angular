@@ -11,7 +11,7 @@
       </div>
       <div id="budgetoverzicht" class="collapse" aria-labelledby="budgetoverzichtHeading" data-parent="#myAccordion">
         <div class="card-body">
-          <table class="table table-sm table-striped">
+          <table class="table table-sm table-striped" *ngIf="overzicht">
             <thead>
             <tr>
               <th>Budgetnaam</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let b of overzicht">
-              <td>{{ b.naam }}</td>
+              <td><a (click)="getBudgetOverzicht(b.naam)" data-toggle="modal" data-target="#budgetMaandoverzichtModal">{{ b.naam }}</a></td>
               <td style="text-align: right" *ngFor="let bm of b.budgetMaandTotaalDtoList">{{ bm.totaalBedrag | currency : 'EUR'}}</td>
             </tr>
             </tbody>
@@ -150,7 +150,38 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="modal fade" id="budgetMaandoverzichtModal" tabindex="-1" aria-labelledby="budgetMaandoverzichtModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="budgetMaandoverzichtModalLabel">{{ selectedBudgetgroep }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-striped" *ngIf="overzichtOpGroep">
+          <thead>
+          <tr>
+            <th>Budgetnaam</th>
+            <th style="text-align: right" *ngFor="let bm of getBudgetmaanden()">{{ bm.maand }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let b of overzichtOpGroep">
+            <td>{{ b.naam }}</td>
+            <td style="text-align: right" *ngFor="let bm of b.budgetMaandTotaalDtoList">{{ bm.totaalBedrag | currency : 'EUR'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" id="nieuwBudgetModal" tabindex="-1" aria-labelledby="nieuwBudgetModalLabel" aria-hidden="true">

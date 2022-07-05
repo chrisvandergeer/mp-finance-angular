@@ -59,6 +59,11 @@ export class TransaktieService {
   getOverzicht() {
     let url = "http://localhost:9080/mp-finance/api/budgetoverzicht";
     return this.http.get<BudgetgroepMaandtotalen[]>(url, TransaktieService.HEADER);
-
   }
+
+  getOverzichtBudgetgroep(naam: string) {
+    let url = "http://localhost:9080/mp-finance/api/budgetoverzicht/" + naam;
+    return this.http.get<BudgetgroepMaandtotalen[]>(url, TransaktieService.HEADER);
+  }
+
 }
